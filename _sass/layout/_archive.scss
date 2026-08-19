@@ -84,6 +84,39 @@
   }
 }
 
+/* Publication ranking badges */
+.publication-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: -0.25em 0 1em;
+}
+
+.publication-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2em 0.55em;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.72em;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+
+  &--ccf {
+    background-color: #b8322a;
+  }
+
+  &--cas {
+    background-color: #2866a6;
+  }
+
+  &--jcr {
+    background-color: #287a4b;
+  }
+}
+
 
 /*
    List view

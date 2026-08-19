@@ -11,26 +11,34 @@ author_profile: true
 
 {% include base_path %}
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
+{% for category in site.publication_category %}
+  <h2>{{ category[1].title }}</h2>
+  <hr />
+  {% for publication in site.publications reversed %}
+    {% if publication.category == category[0] %}
+      <div class="list__item">
+        <article class="archive__item" itemscope itemtype="http://schema.org/ScholarlyArticle">
+          <h3 class="archive__item-title" itemprop="headline">
+            <a href="{{ publication.scholar_url }}">{{ publication.title }}</a>
+          </h3>
+          <p>{{ publication.authors }}</p>
+          <p><i>{{ publication.venue }}</i>, {{ publication.year }}</p>
+          {% if publication.ccf_rank or publication.cas_zone or publication.jcr_quartile %}
+            <div class="publication-badges" aria-label="Publication rankings">
+              {% if publication.ccf_rank %}
+                <span class="publication-badge publication-badge--ccf">{{ publication.ccf_rank }}</span>
+              {% endif %}
+              {% if publication.cas_zone %}
+                <span class="publication-badge publication-badge--cas">{{ publication.cas_zone }}</span>
+              {% endif %}
+              {% if publication.jcr_quartile %}
+                <span class="publication-badge publication-badge--jcr">{{ publication.jcr_quartile }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </article>
+      </div>
+    {% endif %}
   {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
-
-
+{% endfor %}
 
